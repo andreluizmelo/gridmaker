@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DadosGrid } from '../entities/dados-grid';
 import { ImageService } from '../services/image.service';
 
 @Component({
@@ -15,8 +16,8 @@ export class GridcanvasComponent implements OnInit {
   constructor(public imageService: ImageService) { }
 
   ngOnInit(): void {
-    this.imageService.imagemAlterada.subscribe((base64: string) =>{
-      this.imagemOriginalBase64 = base64;
+    this.imageService.formSubmetido.subscribe((dadosForm: DadosGrid) =>{
+      this.imagemOriginalBase64 = dadosForm.base64;
       console.log("imagem recebida");
 
       const image = new Image();
@@ -44,7 +45,7 @@ export class GridcanvasComponent implements OnInit {
         }
 
         this.ctx.drawImage(image, 0, 0, newWidth, newHeight);
-        this.drawGrid();
+        this.drawGrid(dadosForm.numeroColunas, dadosForm.corGrid);
       }
       image.src = this.imagemOriginalBase64;
     });
@@ -78,32 +79,32 @@ export class GridcanvasComponent implements OnInit {
     document.body.removeChild(dlLink);
   }
 
-  drawGrid(){
+  drawGrid(numeroColunas: number, color: string){
     const containerWidth = this.canvas.nativeElement.width;
     const containerHeight = this.canvas.nativeElement.height;
     
-    const pixelJump = containerWidth / 20;
+    const pixelJump = containerWidth / numeroColunas;
     
     let x = 0;
 
     while(x < containerWidth){
-      this.drawLine(x, 0, 0, containerHeight);
+      this.drawLine(x, 0, 0, containerHeight, color);
       x = x + pixelJump;
     }
 
     let y = 0
 
     while(y < containerHeight){
-      this.drawLine(0, y, containerWidth, 0);
+      this.drawLine(0, y, containerWidth, 0, color);
       y = y + pixelJump;
     }
   }
 
-  drawLine(startX, startY, sizeX, sizeY){
+  drawLine(startX, startY, sizeX, sizeY, color){
     this.ctx.beginPath();
     this.ctx.moveTo(startX, startY);
     this.ctx.lineTo(startX + sizeX, startY + sizeY);
-    this.ctx.strokeStyle = "#dd0000"
+    this.ctx.strokeStyle = color;
     this.ctx.stroke();
   }
 

@@ -31,6 +31,10 @@ export class GridmakerformComponent implements OnInit {
     reader.readAsDataURL(fileInput.target.files[0]);
   }
   aplicarImagem(){
-    this.imageService.novaImagem(this.imagemBase64);
+    this.imageService.formSubmetido.emit({
+      base64: this.imagemBase64, 
+      numeroColunas: 20, 
+      corGrid: "#dd0000"
+    });
   }
 }

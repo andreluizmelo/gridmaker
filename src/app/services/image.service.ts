@@ -1,13 +1,14 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { DadosGrid } from '../entities/dados-grid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
-  public imagemAlterada: EventEmitter<string> = new EventEmitter<string>();
+  public formSubmetido: EventEmitter<DadosGrid> = new EventEmitter<DadosGrid>();
   constructor() { }
-  novaImagem(novaImagemEmBase64: string) : void{
+  novaImagem(dadosGrid: DadosGrid) : void{
     console.log("nova imagem emitida!");
-    this.imagemAlterada.emit(novaImagemEmBase64);
+    this.formSubmetido.emit(dadosGrid);
   }
 }
