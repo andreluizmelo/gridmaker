@@ -1,0 +1,10 @@
+<div *ngIf="mostrarPreview" id="preview-container">
+    <label>Imagem Original</label>
+    <img [src]="previewSrc" alt="preview da imagem enviada" class="img-preview"/>
+</div>
+<div id="canvas-container">
+    <canvas #mycanvas width="100px" height="100px"></canvas>
+</div>
+<div>
+    <button mat-raised-button (click)="exportarImagem()">Exportar imagem</button>
+</div>

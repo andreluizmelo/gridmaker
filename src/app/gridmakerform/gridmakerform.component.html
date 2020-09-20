@@ -1,0 +1,14 @@
+<p>gridmakerform works!</p>
+<form>
+    <div class="form-group">
+        <fieldset class="form-group">
+            <label>Imagem:</label>
+            {{erroImagem}}
+            {{sucessoImagem}}
+            <div class="">
+                <input type="file" (change)="fileChangeEvent($event)" accept="image/*" multiple="false">
+            </div>
+        </fieldset>
+    </div>
+    <button type="button" mat-raised-button color="Primary" (click)="aplicarImagem()">Aplicar imagem</button>
+</form>
